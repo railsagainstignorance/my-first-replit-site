@@ -2,12 +2,19 @@ import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { loadContent, createSampleContent } from "./utils/content";
+import { initImageOptimizer, createImageOptimizationMiddleware } from "./utils/images/optimizer";
 import fs from "fs-extra";
 import path from "path";
 
 const CONTENT_DIR = path.join(process.cwd(), 'client', 'public', 'content');
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Initialize image optimizer
+  await initImageOptimizer();
+  
+  // Add image optimization middleware
+  app.use(createImageOptimizationMiddleware());
+  
   // Initialize content
   try {
     // Create content directory if it doesn't exist

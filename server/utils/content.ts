@@ -1,8 +1,9 @@
 import fs from 'fs-extra';
 import path from 'path';
-import { parseMarkdown, slugify } from './markdown';
+import { parseMarkdown, parseMarkdownSync, slugify } from './markdown';
 import { Article, InsertArticle, Collection, InsertCollection, Group, InsertGroup } from '@shared/schema';
 import { storage } from '../storage';
+import { initImageOptimizer } from './images/optimizer';
 
 const CONTENT_DIR = path.join(process.cwd(), 'client', 'public', 'content');
 
@@ -10,6 +11,9 @@ const CONTENT_DIR = path.join(process.cwd(), 'client', 'public', 'content');
  * Loads all markdown content from the filesystem
  */
 export async function loadContent() {
+  // Initialize the image optimizer
+  await initImageOptimizer();
+  
   await ensureCollections();
   await loadArticles();
   await loadGroups();
@@ -77,7 +81,7 @@ async function loadArticles() {
         const fileContent = await fs.readFile(filePath, 'utf-8');
         
         // Parse the markdown
-        const { frontmatter, content, html } = parseMarkdown(fileContent);
+        const { frontmatter, content, html } = await parseMarkdown(fileContent);
         
         // Create the slug from filename or frontmatter
         const slug = frontmatter.slug || slugify(file.replace('.md', ''));
