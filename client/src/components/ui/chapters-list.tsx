@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { type Group } from "@/lib/types";
+import { type Group, type Article } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 
 interface ChaptersListProps {
@@ -10,8 +10,9 @@ const ChaptersList = ({ group }: ChaptersListProps) => {
   // For each article in each chapter, fetch the article details
   const articleQueries = group.chapters.flatMap(chapter => 
     chapter.articles.map(article => {
+      // Add collection to the query key to help with caching
       const queryKey = `/api/articles/${article.slug}`;
-      return useQuery({
+      return useQuery<Article>({
         queryKey: [queryKey],
         enabled: true, // Enable the query to automatically fetch
       });
@@ -21,11 +22,22 @@ const ChaptersList = ({ group }: ChaptersListProps) => {
   // Check if all article queries are loaded
   const isLoading = articleQueries.some(query => query.isLoading);
 
+  // Log article loading status for debugging
+  console.log("Article queries status:", articleQueries.map(q => ({
+    isLoading: q.isLoading,
+    isError: q.isError,
+    error: q.error,
+    slug: q.data ? (q.data as Article).slug : 'unknown'
+  })));
+
   // Create a lookup map for article data
   const articleData = Object.fromEntries(
     articleQueries
       .filter(query => query.data)
-      .map(query => [query.data.slug, query.data])
+      .map(query => {
+        const article = query.data as Article;
+        return [article.slug, article];
+      })
   );
 
   return (

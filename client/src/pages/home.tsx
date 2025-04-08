@@ -29,8 +29,11 @@ const Home = () => {
     queryKey: ["/api/tags"],
   });
 
+  // Filter out the "groups" collection as it's just for organization, not content
+  const filteredCollections = collections?.filter(c => c.slug !== "groups") || [];
+  
   // Fetch articles by collection for the first two collections (for homepage display)
-  const firstTwoCollections = collections?.slice(0, 2) || [];
+  const firstTwoCollections = filteredCollections.slice(0, 2) || [];
   
   // Use a predictable and fixed number of hooks
   const firstCollectionArticles = useQuery<Article[]>({
@@ -147,7 +150,7 @@ const Home = () => {
             </div>
           ) : (
             <div className="grid gap-6 lg:grid-cols-2 md:grid-cols-1">
-              {collections?.slice(0, 2).map((collection) => (
+              {firstTwoCollections.map((collection) => (
                 <CollectionCard
                   key={collection.slug}
                   collection={collection}
@@ -186,16 +189,17 @@ const Home = () => {
           </div>
         ) : (
           <div className="px-4 sm:px-0 mb-10">
-            <div className="border-b border-neutral-200 pb-2 mb-6 flex justify-between items-center">
-              <div>
-                <h2 className="text-2xl font-semibold text-gray-900">{featuredGroup.name}</h2>
-                <p className="text-gray-700 mt-2">{featuredGroup.description}</p>
-              </div>
+            <div className="flex justify-between items-center mb-2">
+              <h2 className="text-2xl font-semibold text-gray-900">Groups</h2>
               <Link href="/groups">
                 <a className="text-primary hover:text-primary-700 text-sm font-medium">
                   View all groups <ChevronRight className="inline-block h-3 w-3 ml-1" />
                 </a>
               </Link>
+            </div>
+            <div className="border-b border-neutral-200 pb-2 mb-6">
+              <h3 className="text-xl font-semibold text-gray-900">{featuredGroup.name}</h3>
+              <p className="text-gray-700 mt-2">{featuredGroup.description}</p>
             </div>
             <ChaptersList group={featuredGroup} />
           </div>
