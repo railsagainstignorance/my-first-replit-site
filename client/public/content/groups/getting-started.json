@@ -1,0 +1,31 @@
+{
+  "name": "Getting Started Guide",
+  "slug": "getting-started-guide",
+  "description": "A curated collection of articles to help you get started with StaticPress. Follow these guides in sequence for the best learning experience.",
+  "chapters": [
+    {
+      "title": "Chapter 1: Installation and Setup",
+      "description": "Learn how to install StaticPress and configure your first site.",
+      "articles": [
+        { "slug": "getting-started", "collection": "tutorials" },
+        { "slug": "yaml-frontmatter", "collection": "tutorials" },
+        { "slug": "collections", "collection": "docs" }
+      ]
+    },
+    {
+      "title": "Chapter 2: Content Organization",
+      "description": "Explore different ways to organize your content with collections and tags.",
+      "articles": [
+        { "slug": "collections", "collection": "docs" },
+        { "slug": "yaml-frontmatter", "collection": "tutorials" }
+      ]
+    },
+    {
+      "title": "Chapter 3: Advanced Features",
+      "description": "Discover more powerful features to enhance your static site.",
+      "articles": [
+        { "slug": "getting-started", "collection": "tutorials" }
+      ]
+    }
+  ]
+}
