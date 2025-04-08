@@ -113,8 +113,13 @@ const Home = () => {
 
         {/* Article Collections */}
         <div className="px-4 sm:px-0 mb-10">
-          <div className="border-b border-neutral-200 pb-2 mb-6">
+          <div className="border-b border-neutral-200 pb-2 mb-6 flex justify-between items-center">
             <h2 className="text-2xl font-semibold text-gray-900">Collections</h2>
+            <Link href="/collections">
+              <a className="text-primary hover:text-primary-700 text-sm font-medium">
+                View all collections <ChevronRight className="inline-block h-3 w-3 ml-1" />
+              </a>
+            </Link>
           </div>
 
           {collectionsLoading ? (
@@ -181,9 +186,16 @@ const Home = () => {
           </div>
         ) : (
           <div className="px-4 sm:px-0 mb-10">
-            <div className="border-b border-neutral-200 pb-2 mb-6">
-              <h2 className="text-2xl font-semibold text-gray-900">{featuredGroup.name}</h2>
-              <p className="text-gray-700 mt-2">{featuredGroup.description}</p>
+            <div className="border-b border-neutral-200 pb-2 mb-6 flex justify-between items-center">
+              <div>
+                <h2 className="text-2xl font-semibold text-gray-900">{featuredGroup.name}</h2>
+                <p className="text-gray-700 mt-2">{featuredGroup.description}</p>
+              </div>
+              <Link href="/groups">
+                <a className="text-primary hover:text-primary-700 text-sm font-medium">
+                  View all groups <ChevronRight className="inline-block h-3 w-3 ml-1" />
+                </a>
+              </Link>
             </div>
             <ChaptersList group={featuredGroup} />
           </div>
@@ -191,8 +203,13 @@ const Home = () => {
 
         {/* Popular Tags */}
         <div className="px-4 sm:px-0 mb-10">
-          <div className="border-b border-neutral-200 pb-2 mb-6">
+          <div className="border-b border-neutral-200 pb-2 mb-6 flex justify-between items-center">
             <h2 className="text-2xl font-semibold text-gray-900">Popular Tags</h2>
+            <Link href="/tags">
+              <a className="text-primary hover:text-primary-700 text-sm font-medium">
+                View all tags <ChevronRight className="inline-block h-3 w-3 ml-1" />
+              </a>
+            </Link>
           </div>
 
           {tagsLoading ? (

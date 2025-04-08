@@ -36,6 +36,11 @@ const Header = () => {
                   Tags
                 </a>
               </Link>
+              <Link href="/groups">
+                <a className={`${isActive('/groups') ? 'border-primary text-gray-900 border-b-2' : 'border-transparent text-gray-700 hover:border-gray-300 hover:text-gray-900'} px-1 pt-1 inline-flex items-center text-sm font-medium border-b-2`}>
+                  Groups
+                </a>
+              </Link>
               <Link href="/about">
                 <a className={`${isActive('/about') ? 'border-primary text-gray-900 border-b-2' : 'border-transparent text-gray-700 hover:border-gray-300 hover:text-gray-900'} px-1 pt-1 inline-flex items-center text-sm font-medium border-b-2`}>
                   About
@@ -72,6 +77,11 @@ const Header = () => {
           <Link href="/tags">
             <a className={`${isActive('/tags') ? 'bg-gray-50 border-primary text-primary-700' : 'border-transparent text-gray-700 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-900'} block pl-3 pr-4 py-2 border-l-4 text-base font-medium`}>
               Tags
+            </a>
+          </Link>
+          <Link href="/groups">
+            <a className={`${isActive('/groups') ? 'bg-gray-50 border-primary text-primary-700' : 'border-transparent text-gray-700 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-900'} block pl-3 pr-4 py-2 border-l-4 text-base font-medium`}>
+              Groups
             </a>
           </Link>
           <Link href="/about">

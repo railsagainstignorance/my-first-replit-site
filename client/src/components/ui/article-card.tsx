@@ -12,7 +12,8 @@ const ArticleCard = ({ article, featured = false }: ArticleCardProps) => {
   
   // Generate a predictable placeholder image based on article title
   const imageId = article.title.length % 10 + 1;
-  const imageUrl = `https://images.unsplash.com/photo-${1500000000000 + imageId * 10000}?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80`;
+  // Using placeholders from picsum.photos for reliable image generation
+  const imageUrl = `https://picsum.photos/seed/${article.slug}/800/400`;
   
   return (
     <div className="bg-white rounded-lg shadow overflow-hidden transition-all hover:shadow-md">
