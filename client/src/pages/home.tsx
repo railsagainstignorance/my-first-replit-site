@@ -3,6 +3,7 @@ import { type Article, type Collection, type Group, type Tag } from "@/lib/types
 import ArticleCard from "@/components/ui/article-card";
 import CollectionCard from "@/components/ui/collection-card";
 import ChaptersList from "@/components/ui/chapters-list";
+import GroupCard from "@/components/ui/group-card";
 import TagCloud from "@/components/ui/tag-cloud";
 import { Link } from "wouter";
 import { ChevronRight } from "lucide-react";
@@ -161,49 +162,40 @@ const Home = () => {
           )}
         </div>
 
-        {/* Example Curated Group */}
-        {groupsLoading || !featuredGroup ? (
-          <div className="px-4 sm:px-0 mb-10">
-            <div className="border-b border-neutral-200 pb-2 mb-6">
-              <Skeleton className="h-7 w-1/2 mb-2" />
-              <Skeleton className="h-4 w-full" />
-            </div>
-            <div className="bg-white rounded-lg shadow overflow-hidden">
-              <div className="divide-y divide-neutral-200">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="p-6">
-                    <Skeleton className="h-6 w-1/3 mb-2" />
-                    <Skeleton className="h-4 w-2/3 mb-4" />
-                    <div className="mt-4 pl-4">
-                      {[1, 2, 3].map((j) => (
-                        <div key={j} className="mb-4">
-                          <Skeleton className="h-5 w-1/2 mb-1" />
-                          <Skeleton className="h-4 w-full" />
-                        </div>
-                      ))}
+        {/* Content Groups */}
+        <div className="px-4 sm:px-0 mb-10">
+          <div className="border-b border-neutral-200 pb-2 mb-6 flex justify-between items-center">
+            <h2 className="text-2xl font-semibold text-gray-900">Groups</h2>
+            <Link href="/groups">
+              <a className="text-primary hover:text-primary-700 text-sm font-medium">
+                View all groups <ChevronRight className="inline-block h-3 w-3 ml-1" />
+              </a>
+            </Link>
+          </div>
+
+          {groupsLoading || !groups?.length ? (
+            <div className="grid gap-6 lg:grid-cols-2 md:grid-cols-1">
+              {[1, 2].map((i) => (
+                <div key={i} className="bg-white rounded-lg shadow overflow-hidden">
+                  <div className="p-6">
+                    <Skeleton className="h-7 w-1/3 mb-3" />
+                    <Skeleton className="h-4 w-full mb-4" />
+                    <div className="flex items-center justify-between mt-4">
+                      <Skeleton className="h-4 w-24" />
+                      <Skeleton className="h-4 w-16" />
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-          </div>
-        ) : (
-          <div className="px-4 sm:px-0 mb-10">
-            <div className="flex justify-between items-center mb-2">
-              <h2 className="text-2xl font-semibold text-gray-900">Groups</h2>
-              <Link href="/groups">
-                <a className="text-primary hover:text-primary-700 text-sm font-medium">
-                  View all groups <ChevronRight className="inline-block h-3 w-3 ml-1" />
-                </a>
-              </Link>
+          ) : (
+            <div className="grid gap-6 lg:grid-cols-2 md:grid-cols-1">
+              {groups.slice(0, 2).map((group) => (
+                <GroupCard key={group.slug} group={group} />
+              ))}
             </div>
-            <div className="border-b border-neutral-200 pb-2 mb-6">
-              <h3 className="text-xl font-semibold text-gray-900">{featuredGroup.name}</h3>
-              <p className="text-gray-700 mt-2">{featuredGroup.description}</p>
-            </div>
-            <ChaptersList group={featuredGroup} />
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Popular Tags */}
         <div className="px-4 sm:px-0 mb-10">

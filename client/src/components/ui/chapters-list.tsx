@@ -22,14 +22,6 @@ const ChaptersList = ({ group }: ChaptersListProps) => {
   // Check if all article queries are loaded
   const isLoading = articleQueries.some(query => query.isLoading);
 
-  // Log article loading status for debugging
-  console.log("Article queries status:", articleQueries.map(q => ({
-    isLoading: q.isLoading,
-    isError: q.isError,
-    error: q.error,
-    slug: q.data ? (q.data as Article).slug : 'unknown'
-  })));
-
   // Create a lookup map for article data
   const articleData = Object.fromEntries(
     articleQueries
